@@ -1,5 +1,5 @@
 
-### This is a simpe client side app that allows user to add projects to their list of projects using native browser API's. 
+### This is a simpe client side app that allows user to add projects to their list of projects using native browser API's, TypeScript and React.
 
 ## User Story
 
