@@ -10,7 +10,21 @@ const peopleInputEl = document.querySelector('#people');
 formEl.id = 'user-input';
 const submitHandler = (event) => {
     event.preventDefault();
-    console.log('User input: ', titleInputEl.value);
+    const userInput = gatherUserInput();
+    const [title, desc, people] = userInput;
+    console.log('title', title, 'desc', desc, 'people', people);
+    clearInputs();
+};
+const gatherUserInput = () => {
+    const enteredTitle = titleInputEl.value;
+    const enteredDescription = descriptionInputEl.value;
+    const enteredPeople = peopleInputEl.value;
+    return [enteredTitle, enteredDescription, +enteredPeople];
+};
+const clearInputs = () => {
+    titleInputEl.value = '';
+    descriptionInputEl.value = '';
+    peopleInputEl.value = '';
 };
 formEl.addEventListener('submit', submitHandler);
 console.log('test_people-input', peopleInputEl);

@@ -19,7 +19,25 @@ formEl.id = 'user-input'
 const submitHandler = (event: Event) => {
 // prevent HTTP req send
 event.preventDefault();
-console.log('User input: ', titleInputEl.value)
+const userInput = gatherUserInput();
+const [title, desc, people] = userInput
+console.log('title', title, 'desc', desc, 'people', people)
+clearInputs()
+}
+
+const gatherUserInput = (): [string, string, number] => {
+    const enteredTitle = titleInputEl.value
+    const enteredDescription = descriptionInputEl.value
+    const enteredPeople = peopleInputEl.value
+
+    //Validation
+    return [enteredTitle, enteredDescription, +enteredPeople]
+}
+
+const clearInputs = () => {
+    titleInputEl.value = ''
+    descriptionInputEl.value = ''
+    peopleInputEl.value = ''
 }
 
 
