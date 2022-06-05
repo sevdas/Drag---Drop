@@ -1,3 +1,8 @@
+enum ProjectSatus {
+    Active = 'active',
+    Finished = 'finished',
+}
+
 // App
 const app = <HTMLDivElement>document.getElementById('app')!;
 
@@ -25,25 +30,41 @@ const peopleInputEl = <HTMLInputElement>document.querySelector('#people')
 
 
 // Project List Elements
-const sectionEl = <HTMLElement>document.querySelector('section'); // document.querySelector('section') as HTMLElement
-const allListEl = <HTMLUListElement>document.querySelector('ul')
-const titleEl = <HTMLElement>document.querySelector('h2');
+const activeSectionEl = <HTMLElement>document.querySelector('section:nth-child(2)'); // document.querySelector('section') as HTMLElement
+const finishedSectionEl = <HTMLElement>document.querySelector('section:nth-child(3)');
+const allActiveListEl = <HTMLUListElement>document.querySelector('.active');
+console.log('allActiveListEl', allActiveListEl)
+const allFinishedListEl = <HTMLUListElement>document.querySelector('.finished')
+console.log('allActiveListEl', allFinishedListEl)
+const activeTitleEl = <HTMLElement>activeSectionEl.firstElementChild?.firstElementChild;
+const finishedTitleEl = <HTMLElement>finishedSectionEl.firstElementChild?.firstElementChild;
 
-// Dynamic css variables
+// Dynamic css variables 
 formEl.id = 'user-input'
-const listId = `active-project-list`
+
+const activeListId = `${ProjectSatus.Active}-project-list`
+const finishedListId = `${ProjectSatus.Finished}-project-list`
 
 // Dynamic css variables for projects section
-sectionEl.id = `active-projects`
-allListEl.id = listId;
-titleEl!.textContent = 'active'.toUpperCase() + ' projects';
+activeSectionEl.id = `active-projects`;
+finishedSectionEl.id = `finished-projects`
+allActiveListEl.id = activeListId;
+allFinishedListEl.id = finishedListId;
+activeTitleEl!.textContent = `${ProjectSatus.Active}`.toUpperCase() + ' projects';
+finishedTitleEl!.textContent = `${ProjectSatus.Finished}`.toUpperCase() + ' projects';
 
 
 // Add list item
-const addListItem = (projTitle: string) =>{
+const addListItem = (projTitle: string, projType: string) =>{
     let listNode = document.createElement('li');
     listNode.textContent = `${projTitle}`
-    document.getElementById(listId)?.append(listNode)
+
+    if(projType === activeListId) {
+        document.getElementById(activeListId)?.append(listNode)
+    }
+    if(projType === finishedListId) {
+        document.getElementById(finishedListId)?.append(listNode)
+    }
 }
 
 
@@ -52,7 +73,8 @@ const submitHandler = (event: Event) => {
 event.preventDefault(); // prevent HTTP req send
 const userInput = gatherUserInput();
 const [title, desc, people] = userInput
-addListItem(title)
+addListItem(title, activeListId)
+addListItem(title, finishedListId)
 console.log('title', title, 'desc', desc, 'people', people)
 clearInputs()
 }
@@ -79,4 +101,6 @@ formEl.addEventListener('submit', submitHandler)
 
 
 console.log('test_people-input', peopleInputEl)
-console.log('test_section', sectionEl)
+
+// Have 2 sections - one active - one finished
+// drag adn drop active into finished 

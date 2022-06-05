@@ -5,4 +5,4 @@
 
 - User lands to the home page. 
 - Title, Description and People fields are displayed.
-- User submits their details throughout ADD PROJECT CTA.
+- User submits their project details throughout ADD PROJECT CTA.

@@ -1,4 +1,10 @@
 "use strict";
+var _a, _b;
+var ProjectSatus;
+(function (ProjectSatus) {
+    ProjectSatus["Active"] = "active";
+    ProjectSatus["Finished"] = "finished";
+})(ProjectSatus || (ProjectSatus = {}));
 const app = document.getElementById('app');
 let templateEl = document.getElementById('project-input');
 let templateElContent = templateEl.content;
@@ -10,25 +16,40 @@ const formEl = document.querySelector('form');
 const titleInputEl = document.querySelector('#title');
 const descriptionInputEl = document.querySelector('#description');
 const peopleInputEl = document.querySelector('#people');
-const sectionEl = document.querySelector('section');
-const allListEl = document.querySelector('ul');
-const titleEl = document.querySelector('h2');
+const activeSectionEl = document.querySelector('section:nth-child(2)');
+const finishedSectionEl = document.querySelector('section:nth-child(3)');
+const allActiveListEl = document.querySelector('.active');
+console.log('allActiveListEl', allActiveListEl);
+const allFinishedListEl = document.querySelector('.finished');
+console.log('allActiveListEl', allFinishedListEl);
+const activeTitleEl = (_a = activeSectionEl.firstElementChild) === null || _a === void 0 ? void 0 : _a.firstElementChild;
+const finishedTitleEl = (_b = finishedSectionEl.firstElementChild) === null || _b === void 0 ? void 0 : _b.firstElementChild;
 formEl.id = 'user-input';
-const listId = `active-project-list`;
-sectionEl.id = `active-projects`;
-allListEl.id = listId;
-titleEl.textContent = 'active'.toUpperCase() + ' projects';
-const addListItem = (projTitle) => {
-    var _a;
+const activeListId = `${ProjectSatus.Active}-project-list`;
+const finishedListId = `${ProjectSatus.Finished}-project-list`;
+activeSectionEl.id = `active-projects`;
+finishedSectionEl.id = `finished-projects`;
+allActiveListEl.id = activeListId;
+allFinishedListEl.id = finishedListId;
+activeTitleEl.textContent = `${ProjectSatus.Active}`.toUpperCase() + ' projects';
+finishedTitleEl.textContent = `${ProjectSatus.Finished}`.toUpperCase() + ' projects';
+const addListItem = (projTitle, projType) => {
+    var _a, _b;
     let listNode = document.createElement('li');
     listNode.textContent = `${projTitle}`;
-    (_a = document.getElementById(listId)) === null || _a === void 0 ? void 0 : _a.append(listNode);
+    if (projType === activeListId) {
+        (_a = document.getElementById(activeListId)) === null || _a === void 0 ? void 0 : _a.append(listNode);
+    }
+    if (projType === finishedListId) {
+        (_b = document.getElementById(finishedListId)) === null || _b === void 0 ? void 0 : _b.append(listNode);
+    }
 };
 const submitHandler = (event) => {
     event.preventDefault();
     const userInput = gatherUserInput();
     const [title, desc, people] = userInput;
-    addListItem(title);
+    addListItem(title, activeListId);
+    addListItem(title, finishedListId);
     console.log('title', title, 'desc', desc, 'people', people);
     clearInputs();
 };
@@ -45,5 +66,4 @@ const clearInputs = () => {
 };
 formEl.addEventListener('submit', submitHandler);
 console.log('test_people-input', peopleInputEl);
-console.log('test_section', sectionEl);
 //# sourceMappingURL=app.js.map
