@@ -1,3 +1,14 @@
+interface Draggable {
+    dragStartHandler(event: DragEvent): void;
+    dragEndHandler(event: DragEvent): void;
+}
+
+interface DragTarget {
+    dragOverHandler(event: DragEvent): void // to signal browser that the thing dragging something over is a valid valid target
+    dropHandler(event: DragEvent): void // updating UI
+    dragLeaveHandler(event: DragEvent): void
+}
+
 enum ProjectSatus {
     Active = 'active',
     Finished = 'finished',
@@ -15,11 +26,6 @@ app.appendChild(templateElContent)
 let templateProjectListEl = <HTMLTemplateElement>document.getElementById('project-list');
 let templateProjectListElContent = templateProjectListEl.content
 app.appendChild(templateProjectListElContent) 
-
-
-// Dynamically add css selectors to the elements based on type
-// let type: string
-// type = type ? 'active' : 'finished' 
 
 
 // Input Elements
